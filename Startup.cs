@@ -86,46 +86,35 @@ namespace PortForwardingAPI
             }
         }
 
-        private static async Task ForwardStreams(Stream inputStream, Stream outputStream, int sourcePort,
-            string clientIpAddress)
+        private static async Task ForwardStreams(NetworkStream inputStream, NetworkStream outputStream, int sourcePort, string clientIpAddress)
         {
-            var isClosed = false;
+            var buffer = new byte[16384];
 
-            try
+            while (true)
             {
-                var buffer = new byte[8192];
-                int bytesRead;
-
-                while (true)
-                    try
-                    {
-                        bytesRead = await inputStream.ReadAsync(buffer, 0, buffer.Length);
-                        if (bytesRead <= 0) break;
-
-                        await outputStream.WriteAsync(buffer, 0, bytesRead);
-                        await outputStream.FlushAsync();
-                    }
-                    catch (IOException ex) when (ex.InnerException is SocketException socketEx &&
-                                                 (socketEx.SocketErrorCode == SocketError.ConnectionAborted ||
-                                                  socketEx.SocketErrorCode == SocketError.ConnectionReset))
-                    {
-                        break;
-                    }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error forwarding streams for IP {clientIpAddress}: {ex.Message}");
-            }
-            finally
-            {
-                if (!isClosed)
+                try
                 {
-                    inputStream.Close();
-                    outputStream.Close();
-                    Cleanup(sourcePort, clientIpAddress);
-                    isClosed = true;
+                    var bytesRead = await inputStream.ReadAsync(buffer, 0, buffer.Length);
+                    if (bytesRead == 0) break; // Connection closed
+
+                    await outputStream.WriteAsync(buffer, 0, bytesRead);
+                }
+                catch (SocketException ex) when (ex.SocketErrorCode == SocketError.ConnectionAborted ||
+                                                 ex.SocketErrorCode == SocketError.ConnectionReset)
+                {
+                    // Handle connection closed exceptions
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error forwarding streams for IP {clientIpAddress}: {ex.Message}");
+                    break;
                 }
             }
+
+            inputStream.Close();
+            outputStream.Close();
+            Cleanup(sourcePort, clientIpAddress);
         }
         private static void IncrementConnectedClients(int sourcePort, string clientIpAddress)
         {
