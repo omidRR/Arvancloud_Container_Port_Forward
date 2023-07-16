@@ -8,21 +8,24 @@
 
   <div dir="rtl">
   
-![image_2023-07-16_03-46-39](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/3bd1bb9b-46c7-465d-b940-2e6a9a2c3646)
+![image_2023-07-16_03-46-39](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/a068e821-2c72-4705-8da5-ffb84110dbc4)
+
 
 2. پورت برنامه را بر روی 5000 تنظیم کنید.
    
   <div dir="rtl">
 
 
-![image_2023-07-16_03-26-49](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/3b3630b8-703b-404b-a90f-e8a50e72092b)
+![image_2023-07-16_03-26-49](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/0b0c851e-31e3-45cf-b116-b97d8474ef67)
+
 
 3. داکر نیازی به سخت افزار بالایی ندارد. با تنظیم 0.3 CPU و 0.3 RAM و 0.1 هارد، حدود 100 کاربر می‌توانند به آن وصل شوند.
    
   <div dir="rtl">
 
 
-   ![image_2023-07-16_03-26-57](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/bc26400a-bb98-4b99-8870-28120675837f)
+   ![image_2023-07-16_03-26-57](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/92bb83c3-a7cd-4372-bc0a-1e66c0ca72b5)
+
 
 
 4. در قسمت **Environment Variables**، پورت خروجی، آی‌پی سرور، و پورت ورودی سرور را وارد کنید (بدون محدودیت در تعداد پورت). مثلا:
@@ -38,22 +41,25 @@
    
    <div dir="rtl">
 
-   ![image_2023-07-16_03-27-03](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/92d669f5-18c3-4e75-b0d9-19e66f0eab15)
+   ![image_2023-07-16_03-27-03](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/180d3e8c-211e-447d-993e-1e47bcea7e5d)
+
 
    
 5.  دامین رایگان را انتخاب کنید.
       
   <div dir="rtl">
 
-   ![image_2023-07-16_03-28-42](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/8ab55c2e-10e5-44e3-afd4-642da20b1a95)
+   ![image_2023-07-16_03-28-42](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/07289883-85ca-4483-9b12-d37e9d17b831)
+
 
    
 
-6. در این قسمت کلیه پورت‌های مورد نیاز را وارد کنید (به یاد داشته باشید پورت 5000 هم باید وارد شود) و سپس روی **ساخت سرور** کلیک کنید.
+6. در این قسمت کلیه پورت‌های مورد نیاز سرور خود را وارد کنید (به یاد داشته باشید پورت 5000 هم باید وارد شود) و سپس روی **ساخت سرور** کلیک کنید.
    
   <div dir="rtl">
 
-   ![image_2023-07-16_03-30-26](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/d05547ef-cb2c-4d7c-843f-92e6844e3963)
+   ![image_2023-07-16_03-30-26](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/2f7ed9d8-0baa-4fd0-94ce-05ad5fb15643)
+
 
    
 
@@ -62,14 +68,16 @@
    
   <div dir="rtl">
 
-![image_2023-07-16_03-33-39](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/f7574a62-2ef4-499b-a3c6-76a1b820b12d)
+![image_2023-07-16_03-33-39](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/4e314c34-c75b-4c0f-9f7e-e949fa00f4c7)
+
 
 
 8. اکنون آدرس IP را دریافت کردیم، آن را در برنامه‌ی v2rayn وارد می‌کنیم. با این کار، بسیار ساده و بدون هیچ مشکلی به سرور متصل می‌شویم.
 
   <div dir="rtl">
 
-  ![image](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/05a1b2cb-bcf5-49c1-8662-245bb10f6f9a)
+  ![image](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/62cb2bd6-d874-4021-b195-18d1c9e49a41)
+
 
 
     
@@ -77,16 +85,17 @@
     
   <div dir="rtl">
 
-  ![image](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/7205a27e-c933-49fc-8f84-8de68d2070b0)
+  ![image](https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/d550f88f-d220-4632-9b16-dc47cbc8de84)
+
 
 10. با ارائه آدرس IP کانتینر و پورت 5000، امکان مشاهده تعداد تقریبی کاربران فراهم می‌گردد.
 
-  <p align="center"><img  src="https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/a30f8c33-5338-41f0-bb1f-e4448b313948"></p>
+  <p align="center"><img  src="https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/fee886c3-e96a-46ac-b34e-5aaf6526d41b"></p>
 
   <div dir="rtl">
 11. در صورت استفاده از دامین آروان، نیازی به وارد کردن پورت نخواهد بود.
 
   <br>
-   <p align="center"><img  src="https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/4e09ab7f-1e8d-428e-a067-82f3018858b7"></p>
+   <p align="center"><img  src="https://github.com/omidRR/Arvancloud_Container_Port_Forward/assets/64539596/5cc55290-392b-4d1c-9420-9647469465cc"></p>
 
 </div>
