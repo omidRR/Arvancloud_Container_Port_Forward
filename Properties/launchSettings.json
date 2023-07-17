@@ -4,6 +4,10 @@
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "/",
+      "environmentVariables": {
+        "T1": "443:5.75.199.87:2083",
+        "T2": "2095:5.75.202.101:2083"
+      },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5144"
     },

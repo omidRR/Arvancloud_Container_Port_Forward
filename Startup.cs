@@ -69,7 +69,11 @@ namespace PortForwardingAPI
                 while (true)
                 {
                     var sourceClient = await listener.AcceptTcpClientAsync();
+                    sourceClient.ReceiveTimeout = 500; // Receive timeout in milliseconds
+                    sourceClient.SendTimeout = 500; // Send timeout in milliseconds
                     var destinationClient = new TcpClient(destinationAddress, destinationPort);
+                    destinationClient.ReceiveTimeout = 10000; // Receive timeout in milliseconds
+                    destinationClient.SendTimeout = 10000; // Send timeout in milliseconds                  
                     var clientIpAddress = sourceClient.Client.RemoteEndPoint.ToString();
 
                     IncrementConnectedClients(sourcePort, clientIpAddress);
@@ -86,35 +90,30 @@ namespace PortForwardingAPI
             }
         }
 
-        private static async Task ForwardStreams(NetworkStream inputStream, NetworkStream outputStream, int sourcePort, string clientIpAddress)
+        private static async Task ForwardStreams(Stream inputStream, Stream outputStream, int sourcePort, string clientIpAddress)
         {
-            var buffer = new byte[16384];
-
-            while (true)
+            try
             {
-                try
+                using (inputStream)
+                using (outputStream)
                 {
-                    var bytesRead = await inputStream.ReadAsync(buffer, 0, buffer.Length);
-                    if (bytesRead == 0) break; // Connection closed
-
-                    await outputStream.WriteAsync(buffer, 0, bytesRead);
-                }
-                catch (SocketException ex) when (ex.SocketErrorCode == SocketError.ConnectionAborted ||
-                                                 ex.SocketErrorCode == SocketError.ConnectionReset)
-                {
-                    // Handle connection closed exceptions
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error forwarding streams for IP {clientIpAddress}: {ex.Message}");
-                    break;
+                    await inputStream.CopyToAsync(outputStream);
                 }
             }
-
-            inputStream.Close();
-            outputStream.Close();
-            Cleanup(sourcePort, clientIpAddress);
+            catch (IOException ex) when (ex.InnerException is SocketException socketEx &&
+                                         (socketEx.SocketErrorCode == SocketError.ConnectionAborted ||
+                                          socketEx.SocketErrorCode == SocketError.ConnectionReset))
+            {
+                // Connection was closed, we can just return
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error forwarding streams for IP {clientIpAddress}: {ex.Message}");
+            }
+            finally
+            {
+                Cleanup(sourcePort, clientIpAddress);
+            }
         }
         private static void IncrementConnectedClients(int sourcePort, string clientIpAddress)
         {
